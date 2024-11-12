@@ -1,5 +1,6 @@
 mod hello_world;
 mod get_users;
+mod new_user;
 
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -10,6 +11,7 @@ use axum::{
 
 use hello_world::hello_world;
 use get_users::get_users;
+use new_user::new_user;
 use crate::models::user::User; // TODO: remove 'crate' and understand the weird import here
 
 pub fn create_routes() -> Router {
@@ -27,5 +29,6 @@ pub fn create_routes() -> Router {
     Router::new()
     .route("/", get(hello_world))
     .route("/users", get(get_users))
+    .route("/new", post(new_user))
     .with_state(storage)
 }
